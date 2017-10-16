@@ -13,6 +13,13 @@ namespace SimpleChat
     {
         public void SendMessage(string message)
         {
+            Clients.Caller.newMessage(message);
+            Clients.Client(Context.ConnectionId).newMessage(message); // Same as above. 
+
+            Clients.All.newMessage(message); // Everyone
+            Clients.Others.newMessages(message); // Everyone other than me.
+            Clients.AllExcept(Context.ConnectionId).newMessage(message); // Everyone other than specific clients.
+
             Clients.All.newMessage(message);
         }
 
