@@ -12,18 +12,21 @@
         var monitor;
 
         $(function () {
-            monitor = S.connection.monitor;
-
+            monitor = $.connection.monitor;
+            monitor.client.newEvent = onNewEvent;
             $.connection.hub.start();
         });
 
         function onNewEvent(eventType, client) {
-
+            $('#messages').append('<li>' + eventType + ' from ' + client + '</li>')
         };
     </script>
 
 </head>
 <body>
-
+    <div>
+        <h2>SignalR Monitor</h2>
+        <ul id="messages"></ul>
+    </div>
 </body>
 </html>

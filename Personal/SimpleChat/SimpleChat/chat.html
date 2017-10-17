@@ -13,13 +13,57 @@
         var chat;
 
         $(function () {
-            chat = $.connection.chat;
+            $.connection.hub.logging = true;
 
-            $.connection.hub.star({ transport: 'longpolling'});
+            chat = $.connection.chat;
+            chat.client.newMessage = onNewMessage;
+
+
+            $('#join').click(onJoin);
+            $('#send').click(onSend);
+            $('#sendprivate').click(onSendPrivate);
+            
+            $.connection.hub.start();
+        });
+
+        function onNewMessage(message) {
+            $('#messages').append('<li>' + message + '</li>');
+        };
+
+        function onJoin() {
+            chat.server.joinRoom($('#room').val());
+        };
+
+        function onSend() {
+            chat.server.sendMessage($('#message').val());
+        };
+
+        function onSendPrivate() {
+            chat.server.sendMessageToRoom($('#room').val(), $('#message').val());
+        };
+
+        $.connection.hub.error(function (err) {
+            alert("An Error occoured: " + err);
         });
 
     </script>
 </head>
 <body>
+    <div class="hero-unit">
+        <h2>Chat</h2>
+
+        <label for="room">Room:</label><input type="text" id="room" />
+        <input type="button" id="join" value="Join"/>
+
+        <lable for="message">Message:</lable><input type="text" id="message"/>
+        
+        <div>
+            <input type="button" id="send" value="Send Message"/>
+            <input type="button" id="sendprivate" value="Send message to room"/>
+        </div>
+        <div class="container">
+            <ul id="messages"></ul>
+        </div>
+    </div>
 </body>
 </html>

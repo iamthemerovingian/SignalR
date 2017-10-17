@@ -20,9 +20,9 @@ namespace SimpleChat
             //Clients.Others.newMessages(message); // Everyone other than me.
             //Clients.AllExcept(Context.ConnectionId).newMessage(message); // Everyone other than specific clients.
 
-            var msg = String.Format("{0}: {1}", Context.ConnectionId, message);
+            var msg = String.Format($"{Context.ConnectionId.ToString()} : {message}");
 
-            Clients.All.newMessage(message);
+            Clients.All.newMessage(msg);
         }
 
         public void JoinRoom(string room)
@@ -32,7 +32,7 @@ namespace SimpleChat
 
         public void SendMessageToRoom(string room, string message)
         {
-            var msg = String.Format("{0}: {1}", Context.ConnectionId, message);
+            var msg = String.Format($"{Context.ConnectionId} : {message}");
 
             Clients.Group(room).newMessage(msg);
         }
