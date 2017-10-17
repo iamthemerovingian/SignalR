@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
+using System.Reflection;
 
 [assembly: OwinStartup(typeof(ConsoleHost.Startup))]
 
@@ -11,7 +12,12 @@ namespace ConsoleHost
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapHubs();
+            var a = Assembly.LoadFrom("Services.dll");
+            app.MapHubs(
+                new Microsoft.AspNet.SignalR.HubConfiguration
+                {
+                    EnableCrossDomain = true
+                });
         }
     }
 }
