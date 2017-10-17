@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> A Simple Chat. </title>
+    <link href="Content/bootstrap.css" rel="stylesheet"/>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+
+        var chat;
+
+        $(function () {
+            chat = $.connection.chat;
+
+            $.connection.hub.star({ transport: 'longpolling'});
+        });
+
+    </script>
+</head>
+<body>
+</body>
+</html>
